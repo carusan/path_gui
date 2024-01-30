@@ -1,0 +1,98 @@
+COMP.CS.110 - Project IV: Path GUI
+
+Program author: Andrea Caruso
+Student number: 151211751
+UserID: ccanca
+Email: andrea.caruso@tuni.fi
+
+Description:
+Documentation file.
+
+Game rules:
+The rules of Path (Polku) are straight forward. the player is presented with a
+4 by 5 grid of slots, the top row of which is of one colour and the bottom row
+of another. The aim of the game is to exchange the colours of the top and
+bottom rows by executing a set of moves. The moves all have a starting slot and
+a destination slot, and in order for the move to be valid, the path between the
+two slots must have the following properties:
+
+    1. The starting slot contains a coloured block.
+    2. The destination slot must be empty.
+    3. The path must not be blocked by other coloured blocks
+    4. The path follows only 90 degree moves.
+
+If all the bottom coloured blocks are moved to the top and all the top coloured
+blocks are moved to the bottom, the game is won. The theoretical optimal path
+can be completed using 31 moves, as such, this number reoccurs in the
+implemented game statistics whether for necessity or stylistic choice.
+
+GUI features:
+All features were implemented using code. The .ui file was not used.
+
+The GUI has the following features and their respective functionalities.
+
+    - Quit: The quit button can be clicked at any time in order to innediately
+            exit the game and close the window.
+
+    - Reset: The reset button can be clicked at any time except right after
+             clicking it a first time, that is, the game must be either ongoing
+	     or have ended. By clicking the reset button the game is reset.
+
+    - Pause: The toggle pause button can be clicked during an ongoing match and
+             it lets the player take a break by pausing the timer. In addition,
+             the button greys out the board so the player can't pause to
+             reflect on their next move. This button functions as a toggle.
+
+    - High contrast: The toggle high contrast button gives the game palette a
+                     high contrast makeover in case the player needs some aid
+                     in recognising the colours. The button can be pressed at
+                     any time and doesn't affect the game's state or 
+                     functionality (except that it resets the player's first
+                     click of the move if one was executed). The button
+                     functions as a toggle.
+
+In addition to buttons, this class implements some additional game statistic
+attributes to reward the player, which are:
+
+    - Points: Each game starts with zero points. For each invalid move, the
+              player loses 3 points. For each valid move, the player is
+              rewarded 12 points IF the total moves are less than or equal
+              to 31; otherwise the player loses 6 points for each valid
+              move. Once the player reaches a victory, the time taken is
+              subtracted from the total points. After all the calculations,
+              if the player has reached the victory in exactly 31 moves, 31
+              points are added to the player's point total. IF the player at
+              this point has less than zero points, the final score is
+              simply zero points.
+
+    - Moves: Each game starts with zero moves. Each valid move adds one move
+             to the total moves taken towardsvictory. IF the player wins the
+             game in exactly 31 moves, the background changes colour to a
+             golden hue until the game is reset. NOTE! Although invalid
+             moves reduce points, they are not added to the move total.
+
+    - Time: Each game starts with zero seconds on the clock. The time taken
+            to reach a victory is measured from the first click which is
+            done on a board tile. The time is measured in seconds. The time
+            stops temporarily when the game is paused. The time is visualised
+            using a timer widget.
+
+To help with visualising the move, upon the starting point click on the board,
+the starting block's colour is dimmed to keep track of what block is the
+starting block. After the starting click for a move, another block is selected
+as the destination location for the move. Colours change also using the high
+contrast toggle button as well as when the player wins with a perfect 31 moves,
+in which case the GUI window's background becomes golden until the start of the
+next game.
+
+The GUI includes an information board, which gives valuable information about
+the state of the game. The info board begins each game by displaying some
+simple rules of how to play. As soon as the game starts, the board informs the
+player whether the destination is vacant or whether the path is blocked in this
+order with two respective error messages. Additionally,the board informs the
+player that starting a move on an empty tile is not allowed. Upon victory, the
+info board displays the gathered game statistics for the current game round.
+
+The game's runtime is kept using a timer which begins as the first starting
+click is executed and ends as the game is won. The timer only stops during a
+game if the game is paused. The timer resets with each starting game.
